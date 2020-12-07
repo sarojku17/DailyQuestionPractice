@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int findMinArrowShots(vector<vector<int>>& p) {
+        if(p.size()==0)
+            return 0;
+
+        int ans=1;
+        sort(p.begin(),p.end());
+        int l=p[0][0];
+        int r=p[0][1];
+
+        for(int i=1;i<p.size();i++)
+        {
+            if(p[i][0]<=r)
+            {
+                l=max(l,p[i][0]);
+                r=min(r,p[i][1]);
+            }
+            else
+            {
+                ans++;
+                l=p[i][0];
+                r=p[i][1];
+            }
+            
+        }
+        return ans;
+    }
+};
