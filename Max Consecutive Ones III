@@ -1,0 +1,37 @@
+//Author : Saroj Mallick
+//Linkedin : https://www.linkedin.com/in/saroj-mallick-00800412b/
+//mailto: sarojku.17@gmail.com
+
+//Given an array A of 0s and 1s, we may change up to K values from 0 to 1.
+//Return the length of the longest (contiguous) subarray that contains only 1s. 
+
+
+//Solution : The idea is to create variable size window where at each moment the maximum possible change (0->1) can not be more than k.
+//The solution is similar to two pointers method.
+//1. At each step front pointer i moves to next index and increases counter by 1 if a[i]==0 .
+//2. if the counter increases more than k the rear pointer j reduces size of the window until the change is less than or equal to k. 
+//link : https://leetcode.com/problems/max-consecutive-ones-iii/
+
+
+
+class Solution {
+public:
+    int longestOnes(vector<int>& a, int k) {
+        int n=a.size();
+        int i=0,j=0;
+        int ans=0,cnt=0;
+        for(int i=0;i<n;i++)
+        {
+            if(a[i]==0)
+                cnt++;
+            while(j<=i&&cnt>k){
+                if(a[j]==0)
+                    cnt--;
+                j++;
+            }
+            ans=max(ans,i-j+1);
+        }
+        return ans; 
+        
+    }
+};
