@@ -1,0 +1,48 @@
+// Author : Saroj Mallick
+// Linkedin : https://www.linkedin.com/in/saroj-mallick-00800412b/
+// mailto: sarojku.17@gmail.com
+
+
+
+// 73. Set Matrix Zeroes
+// Link: https://leetcode.com/problems/set-matrix-zeroes/
+
+// Follow up:
+
+// A straight forward solution using O(mn) space is probably a bad idea.
+// A simple improvement uses O(m + n) space, but still not the best solution.
+// Could you devise a constant space solution?
+
+// Idea : Here instead of using any extra space to store whether the element needs to be set '0', I have used the first column
+// and the first row as the boolean array. To avoid conflict between the first row and the first column we are using separate variable col0
+// for first column . The second for loops are designed in bottom-up,right-left fashion to avoid changing the 1st row and column value to '0'
+// in the first place which may wrongly present the state of a row/column.
+
+//Solution-1
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& a) {
+        int n=a.size();
+        int m=a[0].size();
+        
+        int col0=0;
+        for(int i=0;i<n;i++)
+        {
+            
+            if(a[i][0]==0)col0=1;
+            for(int j=1;j<m;j++)
+            {
+                if(a[i][j]==0)
+                    a[i][0]=a[0][j]=0;
+            }
+        }
+        for(int i=n-1;i>=0;i--)
+        {
+            for(int j=m-1;j>=1;j--)
+                if(a[i][0]==0||a[0][j]==0)
+                    a[i][j]=0;
+            if(col0==1)a[i][0]=0;
+        }
+        
+    }
+};
