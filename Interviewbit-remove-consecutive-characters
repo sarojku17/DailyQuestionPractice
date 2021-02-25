@@ -1,0 +1,61 @@
+
+// Author : Saroj Mallick
+// Linkedin : https://www.linkedin.com/in/saroj-mallick-00800412b/
+// mailto: sarojku.17@gmail.com
+
+
+
+// Link: https://www.interviewbit.com/problems/remove-consecutive-characters/
+// Description :Given a string A and integer B, remove all consecutive same characters that have length 
+// exactly B.
+
+// Problem Constraints
+// 1 <= |A| <= 100000
+// 1 <= B <= |A|
+
+// Input Format
+// First Argument is string A.
+// Second argument is integer B.
+
+
+//Idea : Implemented using a stack and a counter ,every character of the string is insert into the stack
+//and a counter incremented by 1 if the current value is same as the previous value or else reset to 1.
+//if the counter reaches to value 'k' all the previous k elements are poped out form the  stack . 
+
+
+
+string Solution::solve(string s, int b) {
+    int n=s.length();
+    stack<char> st;
+    int c=0;
+    for(int i=0;i<n;i++)
+    {
+        st.push(s[i]);
+        if(c==0)
+            c++;
+        else if(c>0)
+        {
+            if(s[i-1]==s[i])
+                c++;
+            else
+                c=1;
+        }
+        if(c==b)
+        {
+            while(c>0)
+            {
+                st.pop();
+                c--;
+            }
+        }
+    }
+    int m=st.size();
+    string s1="";
+    for(int i=0;i<m;i++)
+    {
+        s1=st.top()+s1;
+        st.pop();
+    }
+    
+    return s1;
+}
