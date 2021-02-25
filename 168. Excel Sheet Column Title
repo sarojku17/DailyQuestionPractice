@@ -1,0 +1,55 @@
+// Author : Saroj Mallick
+// Linkedin : https://www.linkedin.com/in/saroj-mallick-00800412b/
+// mailto: sarojku.17@gmail.com
+
+
+// 168. Excel Sheet Column Title
+//Link: https://leetcode.com/problems/excel-sheet-column-title/
+// Given a positive integer, return its corresponding column title as appear in an Excel sheet.
+
+// For example:
+
+//     1 -> A
+//     2 -> B
+//     3 -> C
+//     ...
+//     26 -> Z
+//     27 -> AA
+//     28 -> AB 
+//     ...
+// Example 1:
+
+// Input: 1
+// Output: "A"
+// Example 2:
+
+// Input: 28
+// Output: "AB"
+// Example 3:
+
+// Input: 701
+// Output: "ZY"
+
+
+//Solution : It is easy to understand. Please note we have substract 1 as there is no '0' equivalent character.
+
+//If you like the solution please award this repo with a star :) 
+
+
+
+
+class Solution {
+public:
+    string convertToTitle(long long n) {
+        string s="";
+        while(n>0)
+        {
+            n--;
+            s=(char)('A'+n%26ll)+s;
+            // cout<<s<<endl;
+            n/=26ll;
+        }
+        return s;
+    }
+};
+
