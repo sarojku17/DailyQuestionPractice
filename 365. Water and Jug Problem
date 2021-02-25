@@ -1,0 +1,107 @@
+// Author : Saroj Mallick
+// Linkedin : https://www.linkedin.com/in/saroj-mallick-00800412b/
+// mailto: sarojku.17@gmail.com
+
+//365. Water and Jug Problem
+//Link: https://leetcode.com/problems/water-and-jug-problem/
+// You are given two jugs with capacities x and y litres. There is an infinite amount of water supply available. You need to determine whether it is possible to measure exactly z litres using these two jugs.
+
+// If z liters of water is measurable, you must have z liters of water contained within one or both buckets by the end.
+
+// Operations allowed:
+
+// Fill any of the jugs completely with water.
+// Empty any of the jugs.
+// Pour water from one jug into another till the other jug is completely full or the first jug itself is empty.
+
+
+//Idea : At any point of time total can not be more x+y or less than 0. Moreover we can express total water 
+//in both the jars as ax+by where a ,b postive means that number of times water is added or negative means it is taken out.
+//We can consider a simple method to fill different level of waters ,like first make y full and in each step remove x amount of water by jar x;
+//eg: water amount : (y) (y-x) (y-2x)......(y%x)
+//now transer this water to x  and let's again make y full and repeat the same process
+//eg: water amount : (y%x+y) (y%x+y-x) (y%x+y-2x)......((y%x+y)%x)=(2y%x)
+// .
+// .
+//till jar x and y becomes completely full.
+
+//Idea-1
+//now we can do bfs to search the value 'z' over search space (0,x+y);
+
+//Idea-2
+//Or we can use the equation ax+by=k*GCD(x,y) ,as if x and y are coprime there always exits integer and b such that ax+by is 
+//multiple of GCD(x,y) ,so we can check whether z is multiple of GCD(x,y)
+
+
+
+
+
+//Solution-1
+//Using BFS
+class Solution {
+public:
+    bool canMeasureWater(int x, int y, int z) {
+        unordered_set<int> st;
+        queue<int> q;
+        st.insert(0);
+        q.push(0);
+        int l=x+y;
+        int d;
+        while(q.size()>0){
+            int d=q.front();
+            q.pop();
+            if(d==z)
+                return true;
+            if(d+x<=l&&st.find(d+x)==st.end())
+            {
+                st.insert(d+x);
+                q.push(d+x);
+            }
+            if(d+y<=l&&st.find(d+y)==st.end())
+            {
+                st.insert(d+y);
+                q.push(d+y);
+
+            }
+            if(d-x>0&&st.find(d-x)==st.end())
+            {
+                st.insert(d-x);
+                q.push(d-x);
+
+            }        
+            if(d-y>0&&st.find(d-y)==st.end())
+            {
+                st.insert(d-y);
+                q.push(d-y);
+            }            
+            
+        }
+        if(d>=0&&(d<=x+y)&&d==z)
+            return true;
+        return false;
+    }
+};
+
+
+//Solution-2
+//Using GCD
+class Solution {
+public:
+    bool canMeasureWater(int x, int y, int z) {
+        if(z<0||z>(x+y))
+            return false;
+        if(z==x||z==y||(z%(x+y)==0))
+            return true;
+        if(z%gcd(max(x,y),min(x,y))==0)
+            return true;
+        else
+            return false;
+    }
+    int gcd(int x,int y){
+        if(y==0)
+            return x;
+        return gcd(y,x%y);
+    }
+};
+
+
