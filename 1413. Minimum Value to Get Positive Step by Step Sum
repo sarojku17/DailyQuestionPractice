@@ -1,0 +1,38 @@
+
+// Author : Saroj Mallick
+// Linkedin : https://www.linkedin.com/in/saroj-mallick-00800412b/
+// mailto: sarojku.17@gmail.com
+
+// You are given an array tasks where tasks[i] = [actuali, minimumi]:
+
+// actuali is the actual amount of energy you spend to finish the ith task.
+// minimumi is the minimum amount of energy you require to begin the ith task.
+// For example, if the task is [10, 12] and your current energy is 11, you cannot start this task. However, if your current energy is 13, you can complete this task, and your energy will be 3 after finishing it.
+// You can finish the tasks in any order you like.
+
+// Return the minimum initial amount of energy you will need to finish all the tasks.
+
+// Idea: Iterate over the array and calculate the running the sum . Store the minimum value of the running sum .
+// We can assume the graph of the running sum where sum is on the  y axis and x is the index. So if we shift the sum 
+// by minimum_running_sum+1 the graph will never touch x axis .So it will be minimum starting value.
+
+
+
+
+class Solution {
+public:
+    int minStartValue(vector<int>& a) {
+        int n=a.size();
+        int s=0;
+        int ans=INT_MAX;
+        
+        for(int i=0;i<n;i++)
+        {
+            s+=a[i];
+            ans=min(ans,s);
+        }
+        if(ans<0)
+            return abs(ans)+1;
+        return 1;
+    }
+};
