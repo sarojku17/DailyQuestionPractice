@@ -1,0 +1,30 @@
+// Author : Saroj Mallick
+// Linkedin : https://www.linkedin.com/in/saroj-mallick-00800412b/
+// mailto: sarojku.17@gmail.com
+
+
+// Link: https://www.interviewbit.com/problems/distribute-in-circle/
+// Problem Description
+
+// A items are to be delivered in a circle of size B.
+
+// Find the position where the Ath item will be delivered if we start from a given position C.
+
+// NOTE: Items are distributed at adjacent positions starting from C.
+// Problem Constraints
+// 1 <= A, B, C <= 10^8
+
+//Idea : First assume instead of circle it's staright line .Calculate ending index if we start distributing 
+// from index c . But it's a circle so use modular function to limit the index values(0...b-1). Again this circle has 
+// starting index as 1 so we will assign the bth index as b;
+
+
+
+
+
+int Solution::solve(int a, int b, int c) {
+    int p=(c+a-1);
+    p=p%b;
+    if(p==0) return b;
+    return p;
+}
