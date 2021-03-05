@@ -1,0 +1,59 @@
+// Author : Saroj Mallick
+// Linkedin : https://www.linkedin.com/in/saroj-mallick-00800412b/
+// mailto: sarojku.17@gmail.com
+
+
+// Link: https://leetcode.com/problems/search-in-rotated-sorted-array/
+// Problem Description
+
+// There is an integer array nums sorted in ascending order (with distinct values).
+// Prior to being passed to your function, nums is rotated at an unknown pivot index k
+// (0 <= k < nums.length) such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0],
+// nums[1], ..., nums[k-1]] (0-indexed). For example, [0,1,2,4,5,6,7] might be rotated at pivot index 3 
+// and become [4,5,6,7,0,1,2].
+// Given the array nums after the rotation and an integer target, return the index of target if it is in
+// nums, or -1 if it is not in nums.
+
+//Idea : Modified Binary search ,If we devide the array with respect to the middle element 
+// at every iteration one of the part of array is sorted , so we will first check which part is 
+// sorted by comparing the middle element with the left most and right most search space .if the element is  in the sorted
+// part the searching pattern will be similar to the normal binary search pattern if it is not sorted.It  will be discard the sorted
+// part and remaining part will be similar to original problem. In all cases the it will converge to normal binary pattern while the search space
+// size decreases to 1.
+
+class Solution {
+public:
+    int search(vector<int>& a, int t) {
+        int n=a.size();
+        int l=0;
+        int r=n-1;
+        int m;
+        while(l<r)
+        {
+            m=l+(r-l)/2;
+            if(a[m]==t)
+            {
+                return m;
+            }
+            else if(a[m]>=a[l]&&((t>=a[l]&&a[m]>=t)))
+            {
+                    r=m-1;
+            }
+            else if(a[m]<a[r]&&((t>=a[m]&&a[r]>=t)))
+            {
+                    l=m+1;
+            }
+            else if(a[m]>=a[l]&&(!(t>=a[l]&&a[m]>=t)))
+            {
+                    l=m+1;
+            }
+            else
+                    r=m-1;
+                
+        }
+        if(a[l]==t)
+            return l;
+        else
+            return -1;
+    }
+};
