@@ -57,3 +57,45 @@ public:
             return -1;
     }
 };
+
+
+
+
+Idea-2: Instead  if we can get the number of rotation ,we can do the binary search on elements and then can compare the value with array after the rotation.
+
+
+
+
+class Solution {
+public:
+    int search(vector<int>& a, int t) {
+        int n=a.size();
+        int l=0;
+        int r=n-1;
+        int m;
+        while(l<r)
+        {
+            m=(l+r)>>1;
+            if(a[r]<a[m])
+                l=m+1;
+            else
+                r=m;
+        }
+        int k=l;
+        cout<<k<<endl;
+        l=0,r=n-1;
+        while(l<=r)
+        {
+            m=l+(r-l)/2;
+            int rm=(m+k)%n;
+            if(a[rm]==t)
+                return rm;
+            if(a[rm]<t)
+                l=m+1;
+            else
+                r=m-1;
+                
+        }
+            return -1;
+    }
+};
