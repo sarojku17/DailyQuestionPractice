@@ -1,0 +1,54 @@
+// Author : Saroj Mallick
+// Linkedin : https://www.linkedin.com/in/saroj-mallick-00800412b/
+// mailto: sarojku.17@gmail.com
+
+
+// Link: https://leetcode.com/problems/3sum/
+// Problem Description
+// There is an integer array nums sorted in ascending order (with distinct values).
+// Prior to being passed to your function, nums is rotated at an unknown pivot index k (0 <= k < nums.length) 
+// such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] 
+// (0-indexed). For example, [0,1,2,4,5,6,7] might be rotated at pivot index 3 and become [4,5,6,7,0,1,2].
+// Given the array nums after the rotation and an integer target, return the index of target if it is in 
+// nums, or -1 if it is not in nums .
+
+//Idea: The problem can be solved easily using extra space (by a set )but to solve this problem with constant space 
+// it requires effort. So here we sort the array and iterate over the elements. For each element we using two pointers method 
+// where each pointer is moved depending on the current  overall sum. To avoid duplication it skips the same 
+// element.
+
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& a) {
+        sort(a.begin(),a.end());
+        int n=a.size();
+        vector<vector<int>> ans;
+        for(int i=0;i<n;i++)
+        {
+            int j=i+1;
+            int k=n-1;
+
+            while(j<k)
+            { 
+                int s=a[i]+a[j]+a[k];
+                if(s<0)
+                    j++;
+                else if(s>0)
+                    k--;
+                else if(s==0)
+                {
+                    vector<int> t={a[i],a[j],a[k]};
+                    ans.push_back(t);
+                    j++;
+                    k--;
+                    while((j+1<n)&&t[1]==a[j]) j++;
+                }
+                
+            }
+            while((i+1<n)&&a[i]==a[i+1]) i++;
+        }
+        return ans;
+        
+    }
+};
