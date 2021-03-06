@@ -1,0 +1,58 @@
+// Author : Saroj Mallick
+// Linkedin : https://www.linkedin.com/in/saroj-mallick-00800412b/
+// mailto: sarojku.17@gmail.com
+
+
+// Link: https://leetcode.com/problems/design-hashmap/
+// Problem Description
+// Design a HashMap without using any built-in hash table libraries.
+
+// To be specific, your design should include these functions:
+
+// put(key, value) : Insert a (key, value) pair into the HashMap. If the value already exists in the HashMap, update the value.
+// get(key): Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key.
+// remove(key) : Remove the mapping for the value key if this map contains the mapping for the key.
+
+
+// Idea: Hashmap is an array of linkedList where each node in linklist is key ,value pair.The operations put,remove and get functionality should have 
+// time comlexcity of o(1) in hashmap. Before inserting any element to the hashmap the hash value of key is calculated this hash value is then mapped to a 
+// a bucket . While inserting elements into hashmap if more than element gets mapped to same bucket it is inserted at the end of linked list for the bucket.
+// To control this collision load factor and capacity is also used.
+
+
+class Solution {
+public:
+    int search(vector<int>& a, int t) {
+        int n=a.size();
+        int l=0;
+        int r=n-1;
+        int m;
+        while(l<r)
+        {
+            m=l+(r-l)/2;
+            if(a[m]==t)
+            {
+                return m;
+            }
+            else if(a[m]>=a[l]&&((t>=a[l]&&a[m]>=t)))
+            {
+                    r=m-1;
+            }
+            else if(a[m]<a[r]&&((t>=a[m]&&a[r]>=t)))
+            {
+                    l=m+1;
+            }
+            else if(a[m]>=a[l]&&(!(t>=a[l]&&a[m]>=t)))
+            {
+                    l=m+1;
+            }
+            else
+                    r=m-1;
+                
+        }
+        if(a[l]==t)
+            return l;
+        else
+            return -1;
+    }
+};
