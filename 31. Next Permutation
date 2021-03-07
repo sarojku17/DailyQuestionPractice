@@ -1,0 +1,54 @@
+// Author : Saroj Mallick
+// Linkedin : https://www.linkedin.com/in/saroj-mallick-00800412b/
+// mailto: sarojku.17@gmail.com
+
+
+// Link: https://leetcode.com/problems/next-permutation/    
+// 31.   Next Permutation
+
+// Implement next permutation, which rearranges numbers into the lexicographically next greater permutation
+// of numbers.If such an arrangement is not possible, it must rearrange it as the lowest possible order 
+// (i.e., sorted in ascending order).The replacement must be in place and use only constant extra memory.
+
+
+// Idea: Here the characters need to be ordered by swap so that the permuation is lexicographically greater
+// than the given permutation. In greatest permutation all the characters will be ordered in the reverse order
+// To minimize the ordering it's better to start from the LSB side and check the first charcter which is smaller than previous 
+// char. It's the perfect char which can be replaced by any other charcter on right side just greater than that.
+// After swapping we can use partition function of quick sort to order the sequence as only character is not properly ordered.
+
+class Solution {
+public:
+    void nextPermutation(vector<int>& a) {
+        int n=a.size();
+        int pre=0;int j=n;
+        bool f=false;
+        for(int i=n-1;i>=0;i--)
+        {
+            if(pre>a[i])
+            {
+                j=i;
+                f=true;
+                break;
+            }
+            pre=a[i];
+        }
+        if(!f)
+        {
+            reverse(a.begin(),a.end());
+            return ;
+        }; 
+        reverse(a.begin()+j+1,a.end());
+        int k= upper_bound(a.begin()+j+1,a.end(),a[j])-a.begin();
+        swap(a[j],a[k]);
+        int r=j;
+        for(int l=j+1;l<n;l++)
+        {
+            if(a[l]<a[k]){
+                r++;
+                swap(a[r],a[l]);
+            }
+        }
+        swap(a[r+1],a[k]);
+    }
+};
