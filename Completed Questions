@@ -1,0 +1,20 @@
+1. Link : https://www.geeksforgeeks.org/find-a-fixed-point-in-a-given-array/
+Question : Find a Fixed Point (Value equal to index) in a given array
+Answer: 1. In sorted distinct array the difference between the i-a[i] will be a non decreasing function
+        .So use a binary search to find the fixed point where i-a[i]==0
+        
+================================================================================================================================        
+2. Link : https://www.geeksforgeeks.org/find-fixed-point-value-equal-index-given-array-duplicates-allowed/
+Question : Find a Fixed Point (Value equal to index) in a given array | Duplicates Allowed
+Answer: Here we have to search on both left side and right side . we can not eliminate one side as elements
+        may be repeated. but we can decrease the search space effectively by eleminating the values that can not be a[i]=i
+        
+        like   int left = magicIndex(arr, start, min(midValue,  midIndex - 1)); 
+               //if (a[mid]< i) then untill a[mid] index a[i] can not be equal to i
+               
+               if we can not find element on left side search on right recursively.
+================================================================================================================================        
+              
+              
+               
+               
